@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:initial_code/pages/register_sceen.dart';
 import 'package:initial_code/pages/task_list.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -16,7 +17,7 @@ class LoginScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/img/login_image.jpg', width: 500, height: 500),
+              Image.asset('assets/img/1.png', width: 500, height: 500),
               const SizedBox(height: 10),
               LoginCard(),
             ],
@@ -33,10 +34,10 @@ class LoginCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.lightGreen,
-      elevation: 4, // Altura da sombra do Card
+      color: Color(0xFF00FF00), // Utilizando um valor hexadecimal (0xFF00FF00 - verde)
+      elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10), // Borda circular do Card
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -74,9 +75,12 @@ class LoginCard extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const TaskList()),
+                    MaterialPageRoute(builder: (context) => const RegisterScreen()),
                   );
                 },
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFFFFFF), // Exemplo de outra cor (0xFF123456 - roxo)
+                ),
                 child: const Text('Register'),
               ),
             ),
