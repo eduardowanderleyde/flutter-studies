@@ -67,6 +67,18 @@ class LoginCard extends StatelessWidget {
               },
               child: const Text('Enviar'),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TaskList()),
+                  );
+                },
+                child: const Text('Register'),
+              ),
+            ),
           ],
         ),
       ),

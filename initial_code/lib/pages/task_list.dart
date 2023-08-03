@@ -10,7 +10,7 @@ class TaskList extends StatelessWidget {
         title: const Text('To do'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
