@@ -33,6 +33,7 @@ class LoginCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.lightGreen,
       elevation: 4, // Altura da sombra do Card
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // Borda circular do Card
