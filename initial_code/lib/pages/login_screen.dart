@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               Image.asset('assets/img/1.png', width: 500, height: 500),
               const SizedBox(height: 10),
-              const LoginCard(),
+              LoginCard(),
             ],
           ),
         ),
@@ -38,20 +38,26 @@ class LoginCard extends StatelessWidget {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void saveData(String key, String value) async {
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setString(key, value);
-}
-  void handleLoginButtonPressed() {
+void handleLoginButtonPressed() async {
   String username = usernameController.text;
   String password = passwordController.text;
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? storedUsername = prefs.getString('username');
+  String? storedPassword = prefs.getString('password');
+  print(username);
+  print(storedUsername);
 
-  // Salvar os dados no SharedPreferences
-  saveData("username", username);
-  saveData("password", password);
-
-  // Aqui você pode adicionar lógica para autenticar o usuário ou navegar para outra tela após o login.
+  if (username == storedUsername && password == storedPassword) {
+    // Username and password match the ones stored in SharedPreferences
+    // You can add additional logic here if needed.
+    print("oi"); // For demonstration purposes, we'll print a message.
+  } else {
+    // Username or password is incorrect
+    // You can add additional logic here, such as showing an error message, etc.
+    print('Username or password is incorrect. Please try again.'); // For demonstration purposes, we'll print a message.
+  }
 }
+
 
 
     return Card(
@@ -89,8 +95,7 @@ class LoginCard extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-
-
+                handleLoginButtonPressed();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const TaskList()),
@@ -103,7 +108,6 @@ class LoginCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                 onPressed: () {
-                  handleLoginButtonPressed();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const RegisterScreen()),
