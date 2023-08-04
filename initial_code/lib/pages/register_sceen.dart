@@ -9,27 +9,34 @@ class RegisterScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Register'),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(24.0),
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
+            const TextField(
               decoration: InputDecoration(labelText: 'Nome'),
             ),
-            SizedBox(height: 16), // Espaço entre os campos de texto
-            TextField(
+            const SizedBox(height: 16), // Espaço entre os campos de texto
+            const TextField(
               decoration: InputDecoration(labelText: 'Email'),
             ),
-            SizedBox(height: 16), // Espaço entre os campos de texto
-            TextField(
+            const SizedBox(height: 16), // Espaço entre os campos de texto
+            const TextField(
               obscureText: true, // Para esconder o texto digitado (senha)
               decoration: InputDecoration(labelText: 'Senha'),
             ),
-            SizedBox(height: 16), // Espaço entre os campos de texto
-            TextField(
+            const SizedBox(height: 16), // Espaço entre os campos de texto
+            const TextField(
               obscureText: true, // Para esconder o texto digitado (confirmação de senha)
               decoration: InputDecoration(labelText: 'Confirmar Senha'),
+            ),
+            const SizedBox(height: 16), // Espaço entre os campos de texto
+            ElevatedButton(
+              onPressed: () {
+                // Adicione aqui a lógica para processar o registro do usuário
+              },
+              child: const Text('Registrar'),
             ),
           ],
         ),
