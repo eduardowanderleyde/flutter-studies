@@ -55,13 +55,29 @@ class LoginCard extends StatelessWidget {
         print("oi"); // For demonstration purposes, we'll print a message.
       } else {
         // Username or password is incorrect
-        // You can add additional logic here, such as showing an error message, etc.
-        print('ae'); // For demonstration purposes, we'll print a message.
+        // Show an alert with an error message
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Login Failed'),
+              content: Text('Invalid username or password. Please try again.'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
     }
 
     return SizedBox(
-      width: 500,
+      width: 400,
       height: 300,
       child: Card(
         color: const Color(0xFF00FF00), // Utilizando um valor hexadecimal (0xFF00FF00 - verde)
