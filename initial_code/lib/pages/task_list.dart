@@ -1,4 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Task List App',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: TaskList(),
+    );
+  }
+}
 
 class TaskList extends StatefulWidget {
   const TaskList({Key? key}) : super(key: key);
@@ -10,9 +26,28 @@ class TaskList extends StatefulWidget {
 class _TaskListState extends State<TaskList> {
   List<String> tasks = [];
 
+  @override
+  void initState() {
+    super.initState();
+    loadTasks(); // Carregar tarefas ao iniciar a tela
+  }
+
+  void loadTasks() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      tasks = prefs.getStringList('tasks') ?? []; // Carregar tarefas salvas ou lista vazia se não houver nenhuma
+    });
+  }
+
+  void saveTasks() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('tasks', tasks); // Salvar a lista de tarefas
+  }
+
   void addTask(String taskName) {
     setState(() {
       tasks.add(taskName);
+      saveTasks(); // Salvar a lista de tarefas após adicionar uma nova tarefa
     });
   }
 
@@ -20,7 +55,7 @@ class _TaskListState extends State<TaskList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('To do'),
+        title: Text('To do'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -112,7 +147,7 @@ class TaskRegister extends StatelessWidget {
                 }
                 Navigator.pop(context);
               },
-              child: const Text('Adicionar Tarefa'),
+              child: const Text('Add Task'),
             ),
           ],
         ),
