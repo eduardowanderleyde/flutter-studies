@@ -23,13 +23,17 @@ This project is an example implementation of a simple login screen using the Flu
 
 ### Prerequisites
 
-- Flutter 2.x.x
+- Flutter sdk: '>=3.0.6 <4.0.0'
 - Dart 2.x.x
-- Additional dependencies (if applicable)
+- dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.0.0
+  cupertino_icons: ^1.0.2
 
 ### Installation
 
-1. Clone this repository: `git clone https://github.com/your-user/login-screen-flutter.git`
+1. Clone this repository: `git clone git@github.com:eduardowanderleyde/login_flutter_project.git`
 2. Navigate to the project directory: `cd login-screen-flutter`
 3. Install the dependencies: `flutter pub get`
 4. Run the app: `flutter run`
@@ -46,7 +50,7 @@ This project is an example implementation of a simple login screen using the Flu
 
 - `lib/` : Contains the application source code
   - `main.dart` : Entry point of the application
-  - `screens/` : Application screens
+  - `screens/` : login_screen,register_screen,task_list and task_register
     - `login_screen.dart` : Login screen implementation
   - ...
 - `pubspec.yaml` : Flutter configuration file
