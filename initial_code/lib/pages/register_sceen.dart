@@ -20,8 +20,7 @@ class RegisterScreen extends StatelessWidget {
       String password = passwordController.text;
 
       // Salvar os dados no SharedPreferences
-      saveData("username", username);
-      saveData("password", password);
+      saveData(username,password);
       // Aqui você pode adicionar lógica para autenticar o usuário ou navegar para outra tela após o login.
     }
 

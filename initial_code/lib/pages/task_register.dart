@@ -37,9 +37,8 @@ class TaskRegister extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                   handleLoginButtonPressed();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TaskList()),
+                  Navigator.pop(
+                  context,
                   );
               },
               child: const Text('Register'),

@@ -1,53 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Task List App',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: TaskList(),
-    );
-  }
-}
 
 class TaskList extends StatefulWidget {
-  const TaskList({Key? key}) : super(key: key);
+  final String username;
+  
+  const TaskList({Key? key, required this.username}) : super(key: key);
 
   @override
   _TaskListState createState() => _TaskListState();
 }
 
 class _TaskListState extends State<TaskList> {
-  List<String> tasks = [];
+  late String username;
+  List<String> tasks = []; // Add this line to declare and initialize the tasks list
 
   @override
   void initState() {
     super.initState();
-    loadTasks(); // Carregar tarefas ao iniciar a tela
+    getUsernameFromSharedPreferences();
+    loadTasks();
   }
 
-  void loadTasks() async {
+  void getUsernameFromSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      tasks = prefs.getStringList('tasks') ?? []; // Carregar tarefas salvas ou lista vazia se não houver nenhuma
+      username = prefs.getString(widget.username) ?? ''; // Pode usar um valor padrão aqui se desejar
     });
   }
 
-  void saveTasks() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList('tasks', tasks); // Salvar a lista de tarefas
-  }
+  void loadTasks() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  setState(() {
+    tasks = prefs.getStringList('tasks_${username}') ?? []; // Carregar tarefas salvas ou lista vazia se não houver nenhuma
+  });
+}
+
+void saveTasks() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setStringList('tasks_${username}', tasks); // Salvar a lista de tarefas usando a chave do nome de usuário
+}
+
 
   void addTask(String taskName) {
     setState(() {
       tasks.add(taskName);
       saveTasks(); // Salvar a lista de tarefas após adicionar uma nova tarefa
+    });
+  }
+
+  void removeTask(int index) {
+    setState(() {
+      tasks.removeAt(index);
+      saveTasks(); // Salvar a lista de tarefas após remover uma tarefa
     });
   }
 
@@ -99,7 +104,18 @@ class _TaskListState extends State<TaskList> {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(tasks[index]),
-                      trailing: const Icon(Icons.chevron_right),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              removeTask(index);
+                            },
+                          ),
+                          Icon(Icons.chevron_right),
+                        ],
+                      ),
                       onTap: () {
                         // Adicione qualquer funcionalidade que desejar ao tocar no ListTile.
                       },

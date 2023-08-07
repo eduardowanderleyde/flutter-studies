@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
                 child: Image.asset('assets/img/lorem.jpg'),
               ),
               const SizedBox(height: 10),
-              LoginCard(),
+              const LoginCard(),
             ],
           ),
         ),
@@ -41,27 +41,27 @@ class LoginCard extends StatelessWidget {
       String username = usernameController.text;
       String password = passwordController.text;
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? storedUsername = prefs.getString('username');
-      String? storedPassword = prefs.getString('password');
+      String? storedPassword = prefs.getString(username);
 
-      if (username == storedUsername && password == storedPassword) {
+
+      if (password == storedPassword) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TaskList()),
+          MaterialPageRoute(builder: (context) => TaskList(username:username)),
         );
       } else {
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('O login falhou'),
-              content: Text('Usuário ou senha inválido. Por favor tente novamente.'),
+              title: const Text('O login falhou'),
+              content: const Text('Usuário ou senha inválido. Por favor tente novamente.'),
               actions: [
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('Fechar'),
+                  child: const Text('Fechar'),
                 ),
               ],
             );
@@ -74,7 +74,7 @@ class LoginCard extends StatelessWidget {
       width: 400,
       height: 300,
       child: Card(
-        color: Color.fromARGB(255, 60, 106, 207),
+        color: const Color.fromARGB(255, 60, 106, 207),
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -88,10 +88,10 @@ class LoginCard extends StatelessWidget {
                 child: TextField(
                   controller: usernameController,
                   keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Username',
                     border: OutlineInputBorder(),
                     labelStyle: TextStyle(
@@ -106,10 +106,10 @@ class LoginCard extends StatelessWidget {
                 child: TextField(
                   controller: passwordController,
                   obscureText: true,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                   ),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
                     labelStyle: TextStyle(
