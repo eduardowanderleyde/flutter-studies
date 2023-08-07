@@ -42,32 +42,25 @@ class LoginCard extends StatelessWidget {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? storedUsername = prefs.getString('username');
       String? storedPassword = prefs.getString('password');
-      print(username);
-      print(storedUsername);
 
       if (username == storedUsername && password == storedPassword) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const TaskList()),
+          MaterialPageRoute(builder: (context) => TaskList()),
         );
-        // Username and password match the ones stored in SharedPreferences
-        // You can add additional logic here if needed.
-        print("oi"); // For demonstration purposes, we'll print a message.
       } else {
-        // Username or password is incorrect
-        // Show an alert with an error message
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text('Login Failed'),
-              content: Text('Invalid username or password. Please try again.'),
+              title: Text('O login falhou'),
+              content: Text('Usuário ou senha inválido. Por favor tente novamente.'),
               actions: [
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('OK'),
+                  child: Text('Fechar'),
                 ),
               ],
             );
@@ -80,7 +73,7 @@ class LoginCard extends StatelessWidget {
       width: 400,
       height: 300,
       child: Card(
-        color: const Color(0xFF00FF00), // Utilizando um valor hexadecimal (0xFF00FF00 - verde)
+        color: const Color(0xFF00FF00),
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
