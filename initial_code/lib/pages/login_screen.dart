@@ -9,6 +9,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -16,7 +17,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: Image.asset('assets/img/1.png'),
+                child: Image.asset('assets/img/lorem.jpg'),
               ),
               const SizedBox(height: 10),
               LoginCard(),
@@ -73,7 +74,7 @@ class LoginCard extends StatelessWidget {
       width: 400,
       height: 300,
       child: Card(
-        color: const Color(0xFF00FF00),
+        color: Color.fromARGB(255, 60, 106, 207),
         elevation: 4,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
@@ -87,9 +88,15 @@ class LoginCard extends StatelessWidget {
                 child: TextField(
                   controller: usernameController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                  decoration: InputDecoration(
                     labelText: 'Username',
                     border: OutlineInputBorder(),
+                    labelStyle: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -99,9 +106,15 @@ class LoginCard extends StatelessWidget {
                 child: TextField(
                   controller: passwordController,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                  decoration: InputDecoration(
                     labelText: 'Password',
                     border: OutlineInputBorder(),
+                    labelStyle: TextStyle(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -109,9 +122,13 @@ class LoginCard extends StatelessWidget {
                 onPressed: () {
                   handleLoginButtonPressed();
                 },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.blue,
+                  onPrimary: Colors.white,
+                ),
                 child: const Text('Enviar'),
               ),
-              const SizedBox(height: 5), // Espaço entre os botões (ElevatedButton)
+              const SizedBox(height: 5),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
@@ -122,7 +139,8 @@ class LoginCard extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFFFFFF), // Exemplo de outra cor (0xFF123456 - roxo)
+                    primary: Colors.blue,
+                    onPrimary: Colors.white,
                   ),
                   child: const Text('Register'),
                 ),

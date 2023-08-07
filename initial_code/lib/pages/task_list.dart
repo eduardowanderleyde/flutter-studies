@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:initial_code/pages/task_register.dart';
 
-class TaskList extends StatelessWidget {
-  const TaskList({Key? key});
+class TaskList extends StatefulWidget {
+  const TaskList({Key? key}) : super(key: key);
+
+  @override
+  _TaskListState createState() => _TaskListState();
+}
+
+class _TaskListState extends State<TaskList> {
+  List<String> tasks = [];
+
+  void addTask(String taskName) {
+    setState(() {
+      tasks.add(taskName);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +48,10 @@ class TaskList extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const TaskRegister()),
-                    );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TaskRegister(addTask)),
+                  );
                 },
                 child: Icon(Icons.add),
               ),
@@ -51,7 +64,7 @@ class TaskList extends StatelessWidget {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: Text('Activity $index'),
+                      title: Text(tasks[index]),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () {
                         // Adicione qualquer funcionalidade que desejar ao tocar no ListTile.
@@ -59,9 +72,48 @@ class TaskList extends StatelessWidget {
                     );
                   },
                   separatorBuilder: (_, __) => Divider(),
-                  itemCount: 3,
+                  itemCount: tasks.length,
                 ),
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TaskRegister extends StatelessWidget {
+  final Function(String) addTask;
+  final TextEditingController _taskNameController = TextEditingController();
+
+  TaskRegister(this.addTask);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Task'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _taskNameController,
+              decoration: InputDecoration(labelText: 'Task Name'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                String taskName = _taskNameController.text;
+                if (taskName.isNotEmpty) {
+                  addTask(taskName);
+                }
+                Navigator.pop(context);
+              },
+              child: const Text('Adicionar Tarefa'),
             ),
           ],
         ),

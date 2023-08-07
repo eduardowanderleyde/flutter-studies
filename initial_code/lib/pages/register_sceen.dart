@@ -7,23 +7,24 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
 
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  
-  void saveData(String key, String value) async {
-  final prefs = await SharedPreferences.getInstance();
-  prefs.setString(key, value);
-}
-  void handleLoginButtonPressed() {
-  String username = usernameController.text;
-  String password = passwordController.text;
+    void saveData(String key, String value) async {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString(key, value);
+    }
 
-  // Salvar os dados no SharedPreferences
-  saveData("username", username);
-  saveData("password", password);
-  // Aqui você pode adicionar lógica para autenticar o usuário ou navegar para outra tela após o login.
-}
+    void handleLoginButtonPressed() {
+      String username = usernameController.text;
+      String password = passwordController.text;
+
+      // Salvar os dados no SharedPreferences
+      saveData("username", username);
+      saveData("password", password);
+      // Aqui você pode adicionar lógica para autenticar o usuário ou navegar para outra tela após o login.
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Register'),
@@ -33,12 +34,21 @@ class RegisterScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+          Center(
+            child: Image.asset(
+              'assets/img/lorem.jpg',
+              width: 500, // Defina a largura desejada
+              height: 500, // Defina a altura desejada
+              fit: BoxFit.contain, // Escolhe como a imagem é ajustada dentro do espaço
+            ),
+          ),
+            const SizedBox(height: 16), // Espaço entre a imagem e os campos de texto
             TextField(
               decoration: const InputDecoration(labelText: 'Nome'),
               controller: usernameController,
             ),
             const SizedBox(height: 16), // Espaço entre os campos de texto
-            const TextField(
+            TextField(
               decoration: InputDecoration(labelText: 'Email'),
             ),
             const SizedBox(height: 16), // Espaço entre os campos de texto
@@ -48,18 +58,18 @@ class RegisterScreen extends StatelessWidget {
               decoration: const InputDecoration(labelText: 'Senha'),
             ),
             const SizedBox(height: 16), // Espaço entre os campos de texto
-            const TextField(
+            TextField(
               obscureText: true, // Para esconder o texto digitado (confirmação de senha)
               decoration: InputDecoration(labelText: 'Confirmar Senha'),
             ),
             const SizedBox(height: 16), // Espaço entre os campos de texto
             ElevatedButton(
               onPressed: () {
-                  handleLoginButtonPressed();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()),
-                  );
+                handleLoginButtonPressed();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
               },
               child: const Text('Registrar'),
             ),
