@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:initial_code/pages/task_register.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({Key? key});
@@ -16,7 +17,8 @@ class TaskList extends StatelessWidget {
           children: [
             const Expanded(
               flex: 2,
-              child: Card(color: Colors.amber,
+              child: Card(
+                color: Colors.amber,
                 child: Center(
                   child: SizedBox(
                     width: 300,
@@ -30,6 +32,18 @@ class TaskList extends StatelessWidget {
                 ),
               ),
             ),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const TaskRegister()),
+                    );
+                },
+                child: Icon(Icons.add),
+              ),
+            ),
+            const SizedBox(height: 16),  // Adicione um espaço entre o botão e a lista de atividades.
             Expanded(
               flex: 10,
               child: Card(
@@ -40,12 +54,12 @@ class TaskList extends StatelessWidget {
                       title: Text('Activity $index'),
                       trailing: const Icon(Icons.chevron_right),
                       onTap: () {
-                        // Add any functionality you want when tapping the ListTile.
+                        // Adicione qualquer funcionalidade que desejar ao tocar no ListTile.
                       },
                     );
                   },
                   separatorBuilder: (_, __) => Divider(),
-                  itemCount: 15,
+                  itemCount: 3,
                 ),
               ),
             ),
