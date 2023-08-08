@@ -28,51 +28,53 @@ class RegisterScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Register'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-          Center(
-            child: Image.asset(
-              'assets/img/lorem.jpg',
-              width: 500, // Defina a largura desejada
-              height: 500, // Defina a altura desejada
-              fit: BoxFit.contain, // Escolhe como a imagem é ajustada dentro do espaço
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Center(
+              child: Image.asset(
+                'assets/img/lorem.jpg',
+                width: 500, // Defina a largura desejada
+                height: 500, // Defina a altura desejada
+                fit: BoxFit.contain, // Escolhe como a imagem é ajustada dentro do espaço
+              ),
             ),
+              const SizedBox(height: 16), // Espaço entre a imagem e os campos de texto
+              TextField(
+                decoration: const InputDecoration(labelText: 'Nome'),
+                controller: usernameController,
+              ),
+              const SizedBox(height: 16), // Espaço entre os campos de texto
+              TextField(
+                decoration: InputDecoration(labelText: 'Email'),
+              ),
+              const SizedBox(height: 16), // Espaço entre os campos de texto
+              TextField(
+                obscureText: true,
+                controller: passwordController, // Para esconder o texto digitado (senha)
+                decoration: const InputDecoration(labelText: 'Senha'),
+              ),
+              const SizedBox(height: 16), // Espaço entre os campos de texto
+              TextField(
+                obscureText: true, // Para esconder o texto digitado (confirmação de senha)
+                decoration: InputDecoration(labelText: 'Confirmar Senha'),
+              ),
+              const SizedBox(height: 16), // Espaço entre os campos de texto
+              ElevatedButton(
+                onPressed: () {
+                  handleLoginButtonPressed();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                  );
+                },
+                child: const Text('Registrar'),
+              ),
+            ],
           ),
-            const SizedBox(height: 16), // Espaço entre a imagem e os campos de texto
-            TextField(
-              decoration: const InputDecoration(labelText: 'Nome'),
-              controller: usernameController,
-            ),
-            const SizedBox(height: 16), // Espaço entre os campos de texto
-            TextField(
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            const SizedBox(height: 16), // Espaço entre os campos de texto
-            TextField(
-              obscureText: true,
-              controller: passwordController, // Para esconder o texto digitado (senha)
-              decoration: const InputDecoration(labelText: 'Senha'),
-            ),
-            const SizedBox(height: 16), // Espaço entre os campos de texto
-            TextField(
-              obscureText: true, // Para esconder o texto digitado (confirmação de senha)
-              decoration: InputDecoration(labelText: 'Confirmar Senha'),
-            ),
-            const SizedBox(height: 16), // Espaço entre os campos de texto
-            ElevatedButton(
-              onPressed: () {
-                handleLoginButtonPressed();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginScreen()),
-                );
-              },
-              child: const Text('Registrar'),
-            ),
-          ],
         ),
       ),
     );

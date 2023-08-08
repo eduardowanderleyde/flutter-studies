@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:initial_code/pages/task_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TaskRegister extends StatelessWidget {
