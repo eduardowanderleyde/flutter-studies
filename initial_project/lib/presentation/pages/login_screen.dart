@@ -45,11 +45,13 @@ class LoginCard extends StatelessWidget {
 
 
       if (password == storedPassword) {
+        // ignore: use_build_context_synchronously
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => TaskList(username:username)),
         );
       } else {
+        // ignore: use_build_context_synchronously
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -123,8 +125,7 @@ class LoginCard extends StatelessWidget {
                   handleLoginButtonPressed();
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.blue,
-                  onPrimary: Colors.white,
+                  foregroundColor: Colors.white, backgroundColor: Colors.blue,
                 ),
                 child: const Text('Enviar'),
               ),
@@ -139,8 +140,7 @@ class LoginCard extends StatelessWidget {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
-                    onPrimary: Colors.white,
+                    foregroundColor: Colors.white, backgroundColor: Colors.blue,
                   ),
                   child: const Text('Register'),
                 ),

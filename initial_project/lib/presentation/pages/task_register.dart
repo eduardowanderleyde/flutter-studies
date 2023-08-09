@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TaskRegister extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const TaskRegister({Key? key});
 
   @override
   Widget build(BuildContext context) {
   
-  final TextEditingController task_controller = TextEditingController();
+  final TextEditingController taskController = TextEditingController();
 
   void saveData(String key, String value) async {
   final prefs = await SharedPreferences.getInstance();
   prefs.setString(key, value);
 }
   void handleLoginButtonPressed() {
-  String task = task_controller.text;
+  String task = taskController.text;
   
   saveData("task", task);
 
@@ -30,7 +31,7 @@ class TaskRegister extends StatelessWidget {
           children: [
             TextField(
               decoration: const InputDecoration(labelText: 'Task'),
-              controller: task_controller,
+              controller: taskController,
             ),
             const SizedBox(height: 16),
             ElevatedButton(

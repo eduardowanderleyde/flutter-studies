@@ -3,6 +3,7 @@ import 'package:initial_code/presentation/pages/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatelessWidget {
+  // ignore: use_key_in_widget_constructors
   const RegisterScreen({Key? key});
 
   @override
@@ -48,7 +49,7 @@ class RegisterScreen extends StatelessWidget {
                 controller: usernameController,
               ),
               const SizedBox(height: 16), // Espaço entre os campos de texto
-              TextField(
+              const TextField(
                 decoration: InputDecoration(labelText: 'Email'),
               ),
               const SizedBox(height: 16), // Espaço entre os campos de texto
@@ -58,7 +59,7 @@ class RegisterScreen extends StatelessWidget {
                 decoration: const InputDecoration(labelText: 'Senha'),
               ),
               const SizedBox(height: 16), // Espaço entre os campos de texto
-              TextField(
+              const TextField(
                 obscureText: true, // Para esconder o texto digitado (confirmação de senha)
                 decoration: InputDecoration(labelText: 'Confirmar Senha'),
               ),

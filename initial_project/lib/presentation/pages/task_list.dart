@@ -8,6 +8,7 @@ class TaskList extends StatefulWidget {
   const TaskList({Key? key, required this.username}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _TaskListState createState() => _TaskListState();
 }
 
@@ -32,12 +33,14 @@ class _TaskListState extends State<TaskList> {
   void loadTasks() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   setState(() {
+    // ignore: unnecessary_brace_in_string_interps
     tasks = prefs.getStringList('tasks_${username}') ?? []; // Carregar tarefas salvas ou lista vazia se não houver nenhuma
   });
 }
 
 void saveTasks() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  // ignore: unnecessary_brace_in_string_interps
   prefs.setStringList('tasks_${username}', tasks); // Salvar a lista de tarefas usando a chave do nome de usuário
 }
 
@@ -60,7 +63,7 @@ void saveTasks() async {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('To do'),
+        title: const Text('To do'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -92,7 +95,7 @@ void saveTasks() async {
                     MaterialPageRoute(builder: (context) => TaskRegister(addTask)),
                   );
                 },
-                child: Icon(Icons.add),
+                child: const Icon(Icons.add),
               ),
             ),
             const SizedBox(height: 16),  // Adicione um espaço entre o botão e a lista de atividades.
@@ -108,12 +111,12 @@ void saveTasks() async {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            icon: Icon(Icons.delete),
+                            icon: const Icon(Icons.delete),
                             onPressed: () {
                               removeTask(index);
                             },
                           ),
-                          Icon(Icons.chevron_right),
+                          const Icon(Icons.chevron_right),
                         ],
                       ),
                       onTap: () {
@@ -121,7 +124,7 @@ void saveTasks() async {
                       },
                     );
                   },
-                  separatorBuilder: (_, __) => Divider(),
+                  separatorBuilder: (_, __) => const Divider(),
                   itemCount: tasks.length,
                 ),
               ),
@@ -137,6 +140,7 @@ class TaskRegister extends StatelessWidget {
   final Function(String) addTask;
   final TextEditingController _taskNameController = TextEditingController();
 
+  // ignore: use_key_in_widget_constructors
   TaskRegister(this.addTask);
 
   @override
@@ -152,7 +156,7 @@ class TaskRegister extends StatelessWidget {
           children: [
             TextField(
               controller: _taskNameController,
-              decoration: InputDecoration(labelText: 'Task Name'),
+              decoration: const InputDecoration(labelText: 'Task Name'),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
