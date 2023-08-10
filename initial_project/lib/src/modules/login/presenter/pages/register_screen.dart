@@ -67,22 +67,14 @@ class RegisterScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16), // Espaço entre os campos de texto
               ElevatedButton(
-                onPressed: () { // Ao clicar no botão, chama a função handleLoginButtonPressed
+                onPressed: () {
+                  handleLoginButtonPressed();
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const TaskList(username: 'admin',)),
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
                   );
                 },
-                child: ElevatedButton(
-                  onPressed: () {
-                    handleLoginButtonPressed();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const LoginScreen()),
-                    );
-                  },
-                  child: const Text('Registrar'),
-                ),
+                child: const Text('Registrar'),
               ),
             ],
           ),
