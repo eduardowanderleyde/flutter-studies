@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
                 child: Image.asset('assets/img/lorem.jpg'),
               ),
               const SizedBox(height: 10),
-              LoginCard(),
+              const LoginCard(),
             ],
           ),
         ),
