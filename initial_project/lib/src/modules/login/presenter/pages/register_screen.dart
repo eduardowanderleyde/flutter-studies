@@ -1,30 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:initial_code/src/login/presenter/pages/task_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const RegisterScreen({Key? key});
+  const RegisterScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController usernameController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+    final TextEditingController confirmPasswordController = TextEditingController();
 
-    void saveData(String key, String value) async {
+    Future<void> saveData(String key, String value) async {
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString(key, value);
+      await prefs.setString(key, value);
     }
 
-    void handleLoginButtonPressed() {
+    void handleRegisterButtonPressed() async {
       String username = usernameController.text;
       String password = passwordController.text;
+      String confirmPassword = confirmPasswordController.text;
 
-      // Salvar os dados no SharedPreferences
-      saveData(username,password);
-      // Aqui você pode adicionar lógica para autenticar o usuário ou navegar para outra tela após o login.
+      if (username.length < 6 || password.length < 6) {
+        _showErrorDialog(context, 'Nome de usuário e senha devem ter pelo menos 6 caracteres.');
+        return;
+      }
+
+      if (password != confirmPassword) {
+        _showErrorDialog(context, 'As senhas não coincidem. Por favor, tente novamente.');
+        return;
+      }
+
+      await saveData(username, password);
+
+      // Pode adicionar lógica para autenticar o usuário ou navegar para outra tela após o registro.
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      );
     }
 
     return Scaffold(
@@ -32,54 +45,67 @@ class RegisterScreen extends StatelessWidget {
         title: const Text('Register'),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(40.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        padding: const EdgeInsets.all(40.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
             Center(
               child: Image.asset(
                 'assets/img/lorem.jpg',
-                width: 500, // Defina a largura desejada
-                height: 500, // Defina a altura desejada
-                fit: BoxFit.contain, // Escolhe como a imagem é ajustada dentro do espaço
+                width: 500,
+                height: 500,
+                fit: BoxFit.contain,
               ),
             ),
-              const SizedBox(height: 16), // Espaço entre a imagem e os campos de texto
-              TextField(
-                decoration: const InputDecoration(labelText: 'Nome'),
-                controller: usernameController,
-              ),
-              const SizedBox(height: 16), // Espaço entre os campos de texto
-              const TextField(
-                decoration: InputDecoration(labelText: 'Email'),
-              ),
-              const SizedBox(height: 16), // Espaço entre os campos de texto
-              TextField(
-                obscureText: true,
-                controller: passwordController, // Para esconder o texto digitado (senha)
-                decoration: const InputDecoration(labelText: 'Senha'),
-              ),
-              const SizedBox(height: 16), // Espaço entre os campos de texto
-              const TextField(
-                obscureText: true, // Para esconder o texto digitado (confirmação de senha)
-                decoration: InputDecoration(labelText: 'Confirmar Senha'),
-              ),
-              const SizedBox(height: 16), // Espaço entre os campos de texto
-              ElevatedButton(
-                onPressed: () {
-                  handleLoginButtonPressed();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()),
-                  );
-                },
-                child: const Text('Registrar'),
-              ),
-            ],
-          ),
+            const SizedBox(height: 16),
+            TextField(
+              decoration: const InputDecoration(labelText: 'Nome'),
+              controller: usernameController,
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              decoration: const InputDecoration(labelText: 'Email'),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              obscureText: true,
+              controller: passwordController,
+              decoration: const InputDecoration(labelText: 'Senha'),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              obscureText: true,
+              controller: confirmPasswordController,
+              decoration: const InputDecoration(labelText: 'Confirmar Senha'),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: handleRegisterButtonPressed,
+              child: const Text('Registrar'),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  void _showErrorDialog(BuildContext context, String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Erro de Registro'),
+          content: Text(errorMessage),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Fechar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

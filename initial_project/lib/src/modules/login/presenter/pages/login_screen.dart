@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:initial_code/src/login/presenter/pages/register_screen.dart';
-import 'package:initial_code/src/login/presenter/pages/task_list.dart';
+import 'package:initial_code/src/modules/login/presenter/pages/register_screen.dart';
+import 'package:initial_code/src/modules/login/presenter/pages/task_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class LoginScreen extends StatelessWidget {
                 child: Image.asset('assets/img/lorem.jpg'),
               ),
               const SizedBox(height: 10),
-              const LoginCard(),
+              LoginCard(),
             ],
           ),
         ),
@@ -30,7 +30,7 @@ class LoginScreen extends StatelessWidget {
 }
 
 class LoginCard extends StatelessWidget {
-  const LoginCard({super.key});
+  const LoginCard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,35 +40,22 @@ class LoginCard extends StatelessWidget {
     void handleLoginButtonPressed() async {
       String username = usernameController.text;
       String password = passwordController.text;
+
+      if (username.length < 6 || password.length < 6) {
+        _showErrorDialog(context, 'Nome de usuário e senha devem ter pelo menos 6 caracteres.');
+        return;
+      }
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? storedPassword = prefs.getString(username);
 
-
       if (password == storedPassword) {
-        // ignore: use_build_context_synchronously
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TaskList(username:username)),
+          MaterialPageRoute(builder: (context) => TaskList(username: username)),
         );
       } else {
-        // ignore: use_build_context_synchronously
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('O login falhou'),
-              content: const Text('Usuário ou senha inválido. Por favor tente novamente.'),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Fechar'),
-                ),
-              ],
-            );
-          },
-        );
+        _showErrorDialog(context, 'Usuário ou senha inválido. Por favor tente novamente.');
       }
     }
 
@@ -121,9 +108,7 @@ class LoginCard extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  handleLoginButtonPressed();
-                },
+                onPressed: handleLoginButtonPressed,
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white, backgroundColor: Colors.blue,
                 ),
@@ -149,6 +134,26 @@ class LoginCard extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showErrorDialog(BuildContext context, String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('O login falhou'),
+          content: Text(errorMessage),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Fechar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
