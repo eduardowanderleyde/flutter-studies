@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:initial_code/presentation/pages/login_screen.dart';
+import 'package:initial_code/src/login/presenter/pages/task_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
@@ -31,7 +33,7 @@ class RegisterScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(24.0),
+          padding: const EdgeInsets.all(40.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -65,14 +67,22 @@ class RegisterScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16), // Espaço entre os campos de texto
               ElevatedButton(
-                onPressed: () {
-                  handleLoginButtonPressed();
+                onPressed: () { // Ao clicar no botão, chama a função handleLoginButtonPressed
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    MaterialPageRoute(builder: (context) => const TaskList(username: 'admin',)),
                   );
                 },
-                child: const Text('Registrar'),
+                child: ElevatedButton(
+                  onPressed: () {
+                    handleLoginButtonPressed();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    );
+                  },
+                  child: const Text('Registrar'),
+                ),
               ),
             ],
           ),

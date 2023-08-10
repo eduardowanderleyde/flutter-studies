@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:initial_code/presentation/pages/task_list.dart';
-import 'package:initial_code/presentation/pages/register_screen.dart';
+import 'package:initial_code/src/login/presenter/pages/register_screen.dart';
+import 'package:initial_code/src/login/presenter/pages/task_list.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
